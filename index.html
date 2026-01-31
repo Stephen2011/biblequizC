@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bible Quiz</title>
+  
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Scripture fade-in animation -->
+  <style>
+    /* ===== SCRIPTURE FADE-IN ===== */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2.5s ease-in forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <!-- Main styles -->
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background-color: #f4f1ea;
+      color: #333;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                  url("https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: auto;
+      font-style: italic;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      padding: 30px 20px;
+    }
+
+    #quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ===== BUTTONS ===== */
+    button {
+      background-color: #5c8adb;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #476bb0;
+    }
+
+    /* ===== ANSWERS ===== */
+    #answers label {
+      display: block;
+      text-align: left;
+      margin: 8px 0;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: #2f2f2f;
+      color: #ddd;
+      padding: 25px 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      max-width: 800px;
+      margin: 8px auto;
+    }
+
+    /* Footer verses styles */
+    .footer-verse {
+      font-style: italic;
+      color: #ccc;
+    }
+  </style>
+
+  <!-- Daily Devotional styles -->
+  <style>
+    /* ===== DAILY DEVOTIONAL ===== */
+    .devotional {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fffdf6;
+      padding: 25px;
+      border-left: 6px solid #8b6f47; /* replaced var(--secondary) */
+      border-radius: 6px;
+      text-align: left;
+      box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    }
+
+    .devotional h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .devotional-verse {
+      font-style: italic;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .devotional-text {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .devotional-prayer {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Dark mode support */
+    body.dark .devotional {
+      background-color: #2b2b2b;
+      border-color: #8b6f47;
+    }
+    body.dark .devotional-prayer {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <!-- Optional header (commented out) -->
+  <!--
+  <header>
+    <h1>Bible Quiz Challenge</h1>
+    <p class="fade-in" id="headerVerse">Test your Bible knowledge — see how many you get right!</p>
+  </header>
+  -->
+
+  <!-- Daily Devotional Section -->
+  <section id="daily-devotional" class="devotional fade-in">
+    <h2>🌿 Daily Devotional</h2>
+    <p class="devotional-verse" id="devVerse"></p>
+    <p class="devotional-text" id="devText"></p>
+    <p class="devotional-prayer" id="devPrayer"></p>
+  </section>
+
+  <!-- Hidden description -->
+  <p style="display:none;">
+    Daily Christian devotional with Bible verses and prayer.
+    Read a new devotional every day to grow spiritually and
+    strengthen your faith through God's Word.
+  </p>
+
+
+<!-- Main header with quiz info -->
+  <header>
+    <h1>📖 Bible Quiz Challenge</h1>
+    <p>Test your Bible knowledge — see how many you get right!</p>
+    <p>“Your word is a lamp to my feet and a light to my path.”<br>— Psalm 119:105</p>
+  </header>
+
+  <!-- Quiz Section (single container) -->
+  <div id="quiz-container">
+    <button id="startBtn">Start Quiz</button>
+    <div id="question-box" class="hidden">
+      <div id="question"></div>
+      <div id="answers"></div>
+      <button id="submitBtn">Check Answer</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  
+
+  <!-- Footer with unique class for styling -->
+  <footer>
+    <p class="verse fade-in footer-verse" style="color: gold; font-size:1.4em;">
+      “Study to show yourself approved unto God.” — 2 Timothy 2:15
+    </p>
+    <p class="verse fade-in" style="font-size:1.5em; font-weight:bold;">
+      Evangelist Engr Stephen Jolayemi&nbsp; © 2026 Bible Quiz Challenge • Built to encourage learning and understanding of God’s Word.
+    </p>
+    <p class="verse fade-in" style="color:yellow; font-size:1.3em;">
+      Come back daily for new Bible questions and quizzes.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="quiz.js"></script>
+  <!-- <script src="quizQ2djavascript.js"></script> -->
+</body>
+</html>
